@@ -7,12 +7,16 @@
                  [compojure "1.1.6"]
                  [hiccup "1.0.5"]
                  [korma "0.3.0-RC5"]
+                 [crypto-random "1.2.0"]
+                 [crypto-password "0.1.3"]
                  [org.postgresql/postgresql "9.2-1002-jdbc4"]]
   :plugins [[lein-cljsbuild "1.0.2"]
             [lein-ring "0.8.10"]
-            [speclj "2.5.0"]]
+            [speclj "2.5.0"]
+            [org.clojars.wokier/lein-bower "0.3.0"]]
   :profiles {:dev {:dependencies [[speclj "2.5.0"]]}}
   :test-paths ["spec"] ;; speclj testing path
+  :prep-tasks ["javac" "compile" "bower"] ;; Download bower deps
   :hooks [leiningen.cljsbuild]
   :source-paths ["src/clj"]
   :cljsbuild {
