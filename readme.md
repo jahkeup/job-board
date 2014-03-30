@@ -72,9 +72,13 @@ jobsite.
 
 This program is written in [Clojure](http://clojure.org) and its build
 tool [Leiningen](http://leiningen.org/) will take care of any and all
-dependencies. With each release, an 'uberjar' will be compiled and
-uploaded to the releases section that can be run from any computer
-that has a JRE without any dependencies or other files necessary.
+dependencies. Clojure is a dynamically typed lisp based on the JVM and
+brings all of the best of Java to the table. I wrote this program in
+Clojure because I can, if you care to ask why, ask away; but know that
+I stand by this decision. With each release, an 'uberjar' will be
+compiled and uploaded to the releases section that can be run from any
+computer that has a JRE without any dependencies or other files
+necessary.
 
 The production and development database is PostgreSQL. There are/will
 be migrations and setup in a separate folder following a final
