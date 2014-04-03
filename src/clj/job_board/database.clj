@@ -19,7 +19,7 @@
   (has-one assignments {:fk :employee_id}))
 
 (defentity jobsites
-  (entity-fields :name :address :city :state)
+  (entity-fields :id :name :address :city :state)
   (has-one assignments {:fk :jobsite_id}))
 
 (defentity assignments
@@ -38,9 +38,6 @@
   (table (subselect employees
                     (where* "employees.id NOT IN (SELECT employee_id FROM employees_jobsites)"))
          :unassigned_employees))
-
-
-(defn )
 
 ;; (sql-only (select assigned-employees))
 ;; (sql-only (select unassigned-employees))
