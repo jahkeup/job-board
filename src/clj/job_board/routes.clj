@@ -6,7 +6,8 @@
             [job-board.pages :as pages]
             [job-board.controllers.login :as login]
             [job-board.controllers.employees :as employees]
-            [job-board.controllers.assignments :as assignments]))
+            [job-board.controllers.assignments :as assignments]
+            [job-board.controllers.slider :as slider]))
 
 (defn redirect-if [fi thn-path els-path]
   (redirect (if fi thn-path els-path)))
@@ -21,8 +22,10 @@
   (POST "/login" [:as request] (login/authenticate (:pin (:params request))))
   (GET  "/assignments" [] (assignments/indx))
   (GET  "/assignments/:id" [id] (assignments/for-jobsite id))
-  (POST "/assignments" [:as request] (assignments/assign request))
-  (GET  "/employees/:id" [id] (employees/show id))
-  (POST "/employees/:id/unassign" [id] (employees/unassign id))
+  (POST "/assignments" {{employee-ids :employee_ids
+                         jobsite-id :assign_to} :params} []
+                         (assignments/assign employee-ids jobsite-id))
+  (GET "/slides" [] (slider/slides))
+  (ANY "/slides/current" [:as req] (slider/current req))
   (route/not-found (pages/not-found)))
 
