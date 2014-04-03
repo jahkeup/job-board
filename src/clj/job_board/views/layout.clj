@@ -5,13 +5,13 @@
 
 (defn- head-content []
   [:head
-   (include-css "bower_components/bootstrap/dist/css/bootstrap.min.css")
-   (include-js "bower_components/jquery/dist/jquery.min.js")
-   (include-js "bower_components/boostrap/dist/js/bootstrap.min.js")])
+   (include-css "/bower_components/bootstrap/dist/css/bootstrap.min.css")
+   (include-js "/bower_components/jquery/dist/jquery.min.js")
+   (include-js "/bower_components/bootstrap/dist/js/bootstrap.min.js")])
 
 (defn page
   "Main layout"
-  [body]
+  [& body]
   (html5
    (head-content)
    [:body
