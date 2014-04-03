@@ -1,15 +1,15 @@
 (ns job-board.database
-  (:use korma.db korma.core environ.core))
+  (:require [korma.db :refer :all]
+            [korma.core :refer :all]
+            [job-board.config.database :as config]))
 
 
 ;; Database connection specs
-(def pg (postgres {:db "jobboard"
-                   :user "Jacob"
-                   :password ""
-                   :delimiters ""}))
+(def conn-spec (postgres (merge config/connection
+                                {:delimiters ""})))
 
 ;; Load up the database per map specs
-(defdb db pg)
+(defdb db conn-spec)
 
 ;; Let us predeclare our bullshit "models"
 (declare employees jobsites assignments)

@@ -1,10 +1,11 @@
 (ns job-board.authentication
   (:require [crypto.password.bcrypt :as password]
-            [crypto.random :as random]))
+            [crypto.random :as random]
+            [job-board.config.authentication :as config]))
 
 (def valid-period 3600000) ; TTL in ms.
 (def valid-tokens (ref {}))
-(def auth-pin (atom "4312"))
+(def auth-pin (atom config/pin))
 
 (defn- remove-token [token sec]
   (Thread/sleep sec)
