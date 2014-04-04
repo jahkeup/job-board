@@ -132,28 +132,29 @@
     (merge-data-into-table! m/employees data {:assignment-key :employee_id})))
 
 (defn refresh-jobsites
-  "Grabs jobsites and sticks them in the database. Does *not* fetch the address at the moment."
+  "Grabs jobsites and sticks them in the database. Does *not* fetch
+  the address at the moment."
   [token]
   (let [fetched (vec (keywordize-keys (get-jobsites token)))
         sterile (map #(select-keys % [:job_site_id :name]) fetched)
         data (map #(dissoc (assoc % :id (:job_site_id %)) :job_site_id) sterile)]
     (merge-data-into-table! m/jobsites data {:assignment-key :jobsite_id})))
 
-(def tkn (get-token "grabill@jahkeup.com" "temp1234"))
-
-(refresh-jobsites tkn)
-(get-jobsites tkn)
-
 (defn cache-agent-poller
-  "Caching agent that pulls in jobsites and employees"
+  "Caching agent that pulls in jobsites and employees
+
+  Should be called as a Future"
   [cacheagent]
-
-  (loop [config cacheagent retries 0]
-    (let [email    (:email cacheagent)
-          password (:password cacheagent)
+  (loop [config cacheagent]
+    (let [email    (:email config)
+          password (:password config)
           token    (get-token email password)]
-      token)))
-
-(cache-agent-poller {:email "grabill@jahkeup.com" :password "temp1234"})
-
+      (try+
+       (do
+         (refresh-jobsites token)
+         (refresh-employees token)
+         (Thread/sleep (:interval config)))
+       (catch [:type ::authentication] {:keys [message]}
+         (println "Poller failed to authenticate and fetch updates."))))
+    (recur config)))
 
