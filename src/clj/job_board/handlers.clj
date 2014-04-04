@@ -6,7 +6,8 @@
             [ring.middleware.not-modified :refer [wrap-not-modified]]
             [ring.server.standalone :refer [serve]]
             [job-board.routes :as routes]
-            [job-board.authentication :as auth]))
+            [job-board.authentication :as auth]
+            :reload))
 
 (defn ignore-trailing-slash
   "Modifies the request uri before calling the handler.
@@ -29,9 +30,7 @@
     (if (auth/authenticate-token token)
       (let [authed-req (assoc request :authenticated? true)]
         (next-handler authed-req))
-      {:status 403 :body "You are not authorized to view this resource."
-       :headers {"Content-Type" "text/plain"}
-       :authenticated? false})))
+      (assoc (resp/redirect "/login") :authenticated? false))))
 
 (defn require-auth-except-for
   "Require authentication by cookie except for [paths]"
@@ -45,14 +44,17 @@
                           (get-in request [:cookies "token" :value])))))
         (check-auth-and-pass handler request)))))
 
-(def app (let [auth-check (require-auth-except-for ["/login" "/about" "/authenticate" "/" "/dump"])]
-           (-> routes/approutes
-               auth-check
-               ignore-trailing-slash
-               (resources/wrap-resource "public")
-               (wrap-content-type)
-               (wrap-not-modified)
-               site)))
+(def app
+  (let [auth-check
+        (require-auth-except-for ["/" "/login"
+                                  "/slides" "/slides/current"])]
+    (-> routes/approutes
+        auth-check
+        ignore-trailing-slash
+        (resources/wrap-resource "public")
+        (wrap-content-type)
+        (wrap-not-modified)
+        site)))
 
 ;; (defonce running-server (serve #'app {:auto-reload? true}))
 
