@@ -13,3 +13,5 @@ pom.xml.asc
 
 # Bower directory
 resources/public/bower_components
+.lein-env
+resources/public/js/cljs.js
