@@ -9,5 +9,14 @@
    [:script {:src "js/slider.js"}]))
 
 
-(defn slide [slide]
-  ([:div.slide]))
+(defn slide
+  "Prepare slide to be sent over websocket to client, where slide is a
+  map of the jobsite and its employees"
+  [slide]
+  (html [:div.slide
+         [:h1 (:name slide)]
+         [:div.employees
+          [:h5 "Working this jobsite:"]
+          [:ul
+           (doall (for [employee (:employees slide)]
+                    [:li (str (:first_name employee) " " (:last_name employee))]))]]]))
