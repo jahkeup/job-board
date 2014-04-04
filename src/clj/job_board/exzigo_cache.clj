@@ -67,14 +67,16 @@
 
   Delete must be a "
   [table data & delete?]
+  (println "Cache merging in data..")
   (if (and delete? (map? delete?))
     (do
       (println "Warning! Removing difference from table.")
       (remove-difference! table data (:assignment-key delete?))))
-  (for [d data]
-    (do
-      (insert-or-update-in! table d)
-      d)))
+  (doall (for [d data]
+           (do
+             (println "Processing" d)
+             (insert-or-update-in! table d)
+               d))))
 
 (defn body-data [request]
   (parse-string (:body request)))
@@ -129,7 +131,8 @@
   (let [fetched (vec (keywordize-keys (get-employees token)))
         sterile (map #(select-keys % [:employee_id :first_name :last_name]) fetched)
         data (map #(dissoc (assoc % :id (:employee_id %)) :employee_id) sterile)]
-    (merge-data-into-table! m/employees data {:assignment-key :employee_id})))
+    (println "I have" (count data) "employees to be merged.")
+    (merge-data-into-table! m/employees data)))
 
 (defn refresh-jobsites
   "Grabs jobsites and sticks them in the database. Does *not* fetch
@@ -138,7 +141,8 @@
   (let [fetched (vec (keywordize-keys (get-jobsites token)))
         sterile (map #(select-keys % [:job_site_id :name]) fetched)
         data (map #(dissoc (assoc % :id (:job_site_id %)) :job_site_id) sterile)]
-    (merge-data-into-table! m/jobsites data {:assignment-key :jobsite_id})))
+    (println "I have" (count data) "jobsites to be merged.")
+    (merge-data-into-table! m/jobsites data)))
 
 (defn cache-agent-poller
   "Caching agent that pulls in jobsites and employees
@@ -150,10 +154,11 @@
           password (:password config)
           token    (get-token email password)]
       (try+
-       (do
-         (refresh-jobsites token)
-         (refresh-employees token)
-         (Thread/sleep (:interval config)))
+       (println "Refreshing Exzigo cache using token: " token)
+       (refresh-jobsites token)
+       (refresh-employees token)
+       (Thread/sleep (:interval config))
+
        (catch [:type ::authentication] {:keys [message]}
          (println "Poller failed to authenticate and fetch updates."))))
     (recur config)))

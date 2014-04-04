@@ -54,11 +54,7 @@
           (future-cancel f))
         (println ";; Caching Agent already stopped."))
       component)))
-(defn make-sure-number [num?]
-  (if (number? num?)
-    num?
-    (read-string num?)))
 
 (defn new-cache-agent [email password & interval]
   (map->CacheAgent {:email email :password password
-                    :interval (make-sure-number (or interval (* 60 60 1000)))}))
+                    :interval (or interval (* 60 60 1000))}))

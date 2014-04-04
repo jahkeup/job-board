@@ -6,7 +6,8 @@
 
 (defn current [request]
   (with-channel request chn
-    (on-close chn #(drop-channel chn))
+    (on-close chn #(do (drop-channel chn)
+                       (println "Disconnect client: " %)))
     (join-send-slide chn)))
 
 (defn slides []
