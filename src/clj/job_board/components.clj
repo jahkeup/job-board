@@ -39,12 +39,26 @@
   (map->Broadcaster {:rotations rotations :refresh-time refresh-time}))
 
 
-(defrecord CacheAgent [email password]
+(defrecord CacheAgent [email password interval]
   component/Lifecycle
   (start [component]
-    (println ";; Starting Caching Agent"))
-  (stop [component]
-    (println ";; Stopping Caching Agent")))
+    (println ";; Starting Cache Agent")
+    (let [cache-agent (future (cacher/cache-agent-poller component))]
+      (assoc component :running-future cache-agent)))
 
-(defn new-cache-agent [email password]
-  (map->CacheAgent {:email email :password password}))
+  (stop [component]
+    (let [f (:running-future component)]
+      (if (not (future-done? f))
+        (do
+          (println ";; Stopping Cache Agent")
+          (future-cancel f))
+        (println ";; Caching Agent already stopped."))
+      component)))
+(defn make-sure-number [num?]
+  (if (number? num?)
+    num?
+    (read-string num?)))
+
+(defn new-cache-agent [email password & interval]
+  (map->CacheAgent {:email email :password password
+                    :interval (make-sure-number (or interval (* 60 60 1000)))}))
