@@ -27,5 +27,6 @@
                          (assignments/assign employee-ids jobsite-id))
   (GET "/slides" [] (slider/slides))
   (ANY "/slides/current" [:as req] (slider/current req))
+  (route/resources "/static/")
   (route/not-found (pages/not-found)))
 
