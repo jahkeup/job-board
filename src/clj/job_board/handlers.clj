@@ -4,7 +4,6 @@
             [ring.middleware.resource :as resources]
             [ring.middleware.content-type :refer [wrap-content-type]]
             [ring.middleware.not-modified :refer [wrap-not-modified]]
-            [ring.server.standalone :refer [serve]]
             [job-board.routes :as routes]
             [job-board.authentication :as auth]
             :reload))
@@ -55,6 +54,4 @@
         (wrap-content-type)
         (wrap-not-modified)
         site)))
-
-;; (defonce running-server (serve #'app {:auto-reload? true}))
 
