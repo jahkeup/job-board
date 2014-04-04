@@ -1,4 +1,4 @@
- (defproject job-board "0.1.0-SNAPSHOT"
+ (defproject job-board "0.1.0"
   :description "Meade Job Board"
   :url "http://board.meade-internal.com"
   :dependencies [[org.clojure/clojure "1.6.0"]
@@ -13,7 +13,7 @@
                  [org.postgresql/postgresql "9.3-1101-jdbc4"]
                  [cheshire "5.3.1"]
                  [prismatic/schema "0.2.1"]
-                 [hiccup-bootstrap-elements "3.1.1-SNAPSHOT"]
+                 [hiccup-bootstrap-elements "3.1.1"]
                  [com.stuartsierra/component "0.2.1"]
                  [clj-http "0.9.1"]
                  [slingshot "0.10.3"]
