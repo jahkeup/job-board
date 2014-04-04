@@ -3,6 +3,8 @@ var socket, connect, recieveAndDisplay, reconnectOnEvent;
 var max_retries = 0;           // * 3s OR 0 for infinite tries
 var trying = false;
 var retries = 1;
+var connLocation = "ws://" + window.location.host + "/slides/current";
+
 
 reconnectOnEvent = function(event) {
   // Rage quit, just refresh and try again.  This is useful for times
@@ -24,7 +26,8 @@ recieveAndDisplay = function(data) {
 };
 
 connect = function() {
-  socket = new WebSocket("ws://" + window.location.host + ":" + "/slides/current" );
+  console.log("Connecting to " + connLocation + "...");
+  socket = new WebSocket(connLocation);
 
   // On errors, close existing socket and reconnect.
   socket.onclose = reconnectOnEvent;
@@ -35,6 +38,3 @@ connect = function() {
 
 
 };
-
-// Do something.
-connect();

@@ -36,7 +36,8 @@
   [paths]
   (fn [handler]
     (fn [request]
-      (if (some #(= (:uri request) %) paths)
+      (if (or (.startsWith (:uri request) "/static/")
+              (some #(= (:uri request) %) paths))
         (handler (assoc request :authenticated?
                         ((complement nil?)
                          (auth/authenticate-token
@@ -50,8 +51,5 @@
     (-> routes/approutes
         auth-check
         ignore-trailing-slash
-        (resources/wrap-resource "public")
-        (wrap-content-type)
-        (wrap-not-modified)
         site)))
 

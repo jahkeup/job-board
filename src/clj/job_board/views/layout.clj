@@ -5,9 +5,12 @@
 
 (defn- head-content []
   [:head
-   (include-css "/bower_components/bootstrap/dist/css/bootstrap.min.css")
-   (include-js "/bower_components/jquery/dist/jquery.min.js")
-   (include-js "/bower_components/bootstrap/dist/js/bootstrap.min.js")])
+   [:meta {:charset "utf-8"}]
+   [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
+   (include-css "/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
+   (include-js  "/static/bower_components/jquery/dist/jquery.min.js")
+   (include-js  "/static/bower_components/bootstrap/dist/js/bootstrap.min.js")
+   (include-css "/static/css/page.css")])
 
 (defn page
   "Main layout"
