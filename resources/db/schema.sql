@@ -15,9 +15,9 @@ CREATE TABLE employees (
 CREATE TABLE jobsites (
        id INTEGER UNIQUE NOT NULL,
        name VARCHAR(255) NOT NULL,
-       address VARCHAR(255) NOT NULL,
-       city VARCHAR(255) NOT NULL,
-       state CHAR(2) NOT NULL,
+       address VARCHAR(255),
+       city VARCHAR(255),
+       state CHAR(2),
        PRIMARY KEY (id)
 );
 
