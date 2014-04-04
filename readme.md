@@ -103,6 +103,10 @@ db.password - password to use
 The hostname and port isn't settable right now, it should be using a
 local instance of postgresql.
 
+slide.refresh - Number of times around before the database is checked
+for new entries.
+slide.time - Seconds in which to keep the slide on screen for
+
 exzigo.username - User to fetch from Exzigo API (email)
 exzigo.password - password ..
 exzigo.poll.interval - Time between fetches (default 60 minutes)
@@ -118,6 +122,9 @@ export DB_DATABASE="jobboard"
 export DB_USERNAME="jobboard"
 export DB_PASSWORD="jobboard"
 
+export SLIDE_REFRESH=1
+export SLIDE_TIME=10
+
 export EXZIGO_USERNAME="email@address.com"
 export EXZIGO_PASSWORD="pass1234"
 
@@ -125,4 +132,5 @@ export EXZIGO_PASSWORD="pass1234"
 
 ### Running
 
-Bam: `java -jar job-board-standalone.jar -D...`
+Bam: `java -jar job-board.jar -D...` or `java -jar job-board.jar #
+with exported variables`.
