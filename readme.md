@@ -85,3 +85,30 @@ be migrations and setup in a separate folder following a final
 decision on a DB Migration library.
 
 
+# Starting and Configuring
+
+
+### Configuration options
+
+```
+
+These are set at exec time with -D<name>=<val>
+
+auth.pin - Authentication pin used for login
+
+db.database - The database to use, must be prepared manually.
+db.username - user to connect with
+db.password - password to use
+
+The hostname and port isn't settable right now, it should be using a
+local instance of postgresql.
+
+exzigo.username - User to fetch from Exzigo API (email)
+exzigo.password - password ..
+exzigo.poll.interval - Time between fetches (default 60 minutes)
+
+```
+
+### Running
+
+Bam: `java -jar job-board-standalone.jar -D...`
