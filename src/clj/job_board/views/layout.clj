@@ -6,6 +6,7 @@
 (defn- head-content []
   [:head
    [:meta {:charset "utf-8"}]
+   [:meta {:name "viewport" :content "width=device-width, initial-scale=1"}]
    (include-css "/static/bower_components/bootstrap/dist/css/bootstrap.min.css")
    (include-js  "/static/bower_components/jquery/dist/jquery.min.js")
    (include-js  "/static/bower_components/bootstrap/dist/js/bootstrap.min.js")

@@ -1,13 +1,35 @@
-body {
-  width: 900px;
-  margin: 0 auto;
-  background-color: #8eba8e;
+.slide {
+	margin-left:auto;
+	margin-right:auto;
+	display: block;
 }
 
-div {
-  background: green;
-  margin: 3em;
-  padding: 1em;
-  border: 1px solid gray;
-  background-color: #baf0ba;
+.slide > .name {
+	margin-top: 100px;
+	margin-left:auto;
+	margin-right:auto;
+	display: block;
+	text-align: center;
+	font-size: 4em;
+}
+
+.slide > .employees {
+	text-align: center;
+}
+
+.slide .employees-title {
+	font-size: 1.5em;
+	color: #fff;
+	width: 100%;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #999;
+	margin-bottom: 20px;
+}
+
+.slide ul {
+	text-align: center;
+	list-style: none;
+	margin: none;
+	padding: none;
+	font-size: 2em ;
 }

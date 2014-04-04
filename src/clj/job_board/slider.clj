@@ -80,7 +80,7 @@
   [slide-ids time]
   (doall (for [id slide-ids]
            (do (reset! current-slide-id id)
-               (prn "Sending slide " @current-slide-id)
+               (println (str "Sending slide for jobsite " @current-slide-id))
                (broadcast-slide (current-slide))
                (Thread/sleep time)))))
 
@@ -94,13 +94,3 @@
       (if (= loop-refresh reps)
         (recur (get-assigned-jobsites) 0)
         (recur slides (inc reps))))))
-
-;; Broadcaster Component
-;; (declare broadcaster)
-;; (do
-;;   (if (and broadcaster (not (future-done? broadcaster)))
-;;     (future-cancel broadcaster))
-;;   (def broadcaster (future (run-broadcaster 3 1))))
-
-
-
