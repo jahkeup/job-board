@@ -1,18 +1,18 @@
 # Job Board
 
-This is the Meade Job Board system that is used for scheduling
-employees on jobsites. This application takes advantage of the
+This is the Meade Job Board system that is used for assigning
+employees to jobsites. This application takes advantage of the
 [Exzigo API](http://exzigo.com) to provide employees and
 jobsites. This application in turn caches that data and allows
-scheduling based on it.
+assignments based on it.
 
 ## Features
 
 Job Board in its current vision will provide 3 main views:
 
-1. Scheduling View
+1. Assignment View
 
-   A scheduling oriented view that offers little in the 'at a glance'
+   A assignment oriented view that offers little in the 'at a glance'
    category of things.
 
 2. Overall View
@@ -20,46 +20,46 @@ Job Board in its current vision will provide 3 main views:
    This view exposes the schedule for the company and any notices or
    restrictions for a jobsite.
 
-3. Bulletin View
+3. Slide View
    
    This view rotates through the jobsites that currently scheduled for
    and displays them in a 'at-a-glance' manner.
 
-### Scheduling View
+### Assignment View
 
-The scheduling view will only be accessible by management officers
+The assignment view will only be accessible by management officers
 that are privy to the PIN necessary for modifying the assignments. At
 the start, there will only be a single PIN and no other
 users/usernames/emails necessary for accessing the site. In the
 future, this may change.
 
-The scheduler will provide a page with all active employees listed
+The assigner will provide a page with all active employees listed
 along with their assigned jobsites. Next to their names will be a
 checkbox that will allow them to be bulk assigned to a jobsite via a
 dropdown and submit button. Simple.
 
 There will eventually be an option to group by currently assigned
 jobsites, though for now, it will simply be ordered by employee last
-name.
+name (just kidding, its by id).
 
-### Overview
+### Overview (not implemented yet)
 
-This view, similar to the scheduling view, will only allow the viewing
+This view, similar to the assignment view, will only allow the viewing
 of all jobsites and their assignees. This will be a simple grid setup
 where all jobsites will be a grid element with jobsite information and
 assignees listed. This grid will be responsive and will flow to fit
 large screens.
 
-### Bulletin View
+### Slide View
 
-This view will provide a "scrolling marquee" of the day's assigned
+This view will provide a "rolling marquee" of the day's assigned
 jobsites and the assignees.
 
 Essentially this will be a larger display targeted page with a
 highlight of the following details of assignment:
 
 - Jobsite Name
-- Jobsite Notices
+- Jobsite Notices (don't have specs for this yet)
 - Assigned Employees
 
 
@@ -68,7 +68,7 @@ as weather and any notices from management regarding the particular
 jobsite.
 
 
-## Program Deployment and Choices
+# Program Deployment and Choices
 
 This program is written in [Clojure](http://clojure.org) and its build
 tool [Leiningen](http://leiningen.org/) will take care of any and all
@@ -85,7 +85,7 @@ be migrations and setup in a separate folder following a final
 decision on a DB Migration library.
 
 
-# Starting and Configuring
+## Starting and Configuring
 
 
 ### Configuration options
