@@ -8,9 +8,10 @@
 (defn assign-select
   "Create a select dropdown given the jobsites"
   [jobsites]
-  (f/select-alone "assign_to" "Assign To Jobsite"
-                  (map #(identity {:name (:name %) :value (:id %)})
-                       (conj jobsites {:name "Unassign" :id 0}))))
+  (f/select-alone
+   "assign_to" "Assign To Jobsite"
+   (map #(identity {:name (:name %) :value (:id %)})
+        (into [{:name "Unassign" :id 0}] jobsites))))
 
 (defn assignments-edit-list [avail-jobsites assignments]
   (page
