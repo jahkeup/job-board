@@ -17,6 +17,7 @@
                  [com.stuartsierra/component "0.2.1"]
                  [clj-http "0.9.1"]
                  [slingshot "0.10.3"]
+                 [yaclot "0.1.5"]
                  [environ "0.4.0"]]
   :plugins [[lein-cljsbuild "1.0.2"]
             [lein-ring "0.8.10"]

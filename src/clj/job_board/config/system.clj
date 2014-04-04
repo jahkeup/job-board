@@ -1,5 +1,6 @@
 (ns job-board.config.system
   (:require [job-board.components :refer :all]
+            [job-board.config.utils :refer [parse-int]]
             [com.stuartsierra.component :as component]
             [environ.core :refer [env]]))
 
@@ -7,11 +8,11 @@
   (let [{:keys [port slide-refresh slide-time]} config]
     (component/system-map
      :config config
-     :webserver (new-webserver port)
+     :webserver (new-webserver (parse-int (env :webserver-port)))
      :broadcaster (new-broadcaster slide-refresh slide-time)
      :cacheagent (new-cache-agent (env :exzigo-username)
                                   (env :exzigo-password)
-                                  (env :exzigo-poll-interval)))))
+                                  (parse-int (env :exzigo-poll-interval))))))
 
 (def system (job-board-system {:port 3000 :slide-refresh 1
                                :slide-time 10}))

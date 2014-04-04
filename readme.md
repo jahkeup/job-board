@@ -107,10 +107,12 @@ exzigo.username - User to fetch from Exzigo API (email)
 exzigo.password - password ..
 exzigo.poll.interval - Time between fetches (default 60 minutes)
 
-^^ those are the system properties but you can just use env variable:
+^^ those are the system properties but you can just use env variables:
 
 
 export AUTH_PIN="9999"
+
+export WEBSERVER_PORT=80
 
 export DB_DATABASE="jobboard"
 export DB_USERNAME="jobboard"
